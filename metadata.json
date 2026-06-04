@@ -1,0 +1,6 @@
+{
+  "name": "Prime Browser",
+  "description": "Premium Apple-style browser with Liquid Glass theme, built-in VPN, Onion routing, tracking protection, secure cookies, HTML Inspector, Console and automated Gemini AI page analysis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
