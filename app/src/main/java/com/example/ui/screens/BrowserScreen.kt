@@ -55,12 +55,18 @@ fun BrowserScreen(
         webViewInstance?.goBack()
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 44.dp)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+    if (viewModel.activeCamouflageMode) {
+        CalculatorDecoy(
+            viewModel = viewModel,
+            modifier = Modifier.fillMaxSize()
+        )
+    } else {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 44.dp)
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
             
             // --- TOP GLASS HEADER (Address bar & secure indicators) ---
             Row(
@@ -123,6 +129,18 @@ fun BrowserScreen(
                                     contentDescription = "Clear",
                                     tint = Color.White.copy(alpha = 0.5f),
                                     modifier = Modifier.size(12.dp)
+                                )
+                            }
+                        } else {
+                            IconButton(
+                                onClick = { viewModel.loadUrl("prime://home") },
+                                modifier = Modifier.size(16.dp).testTag("app_nav_home_bar")
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Home,
+                                    contentDescription = "Home",
+                                    tint = Color.White.copy(alpha = 0.5f),
+                                    modifier = Modifier.size(14.dp)
                                 )
                             }
                         }
@@ -285,7 +303,7 @@ fun BrowserScreen(
                                     .padding(4.dp),
                                 horizontalArrangement = Arrangement.SpaceEvenly
                             ) {
-                                val engines = listOf("DuckDuckGo", "Brave", "Tor (Onion)")
+                                val engines = listOf("Google", "DuckDuckGo", "Brave", "Tor (Onion)")
                                 engines.forEach { engine ->
                                     val isSelected = viewModel.selectedSearchEngine == engine
                                     val bgEngineColor = if (isSelected) accentColor.copy(alpha = 0.22f) else Color.Transparent
@@ -306,9 +324,10 @@ fun BrowserScreen(
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                             Icon(
                                                 imageVector = when (engine) {
+                                                    "Google" -> Icons.Default.Search
                                                     "Brave" -> Icons.Default.Public
                                                     "Tor (Onion)" -> Icons.Default.Security
-                                                    else -> Icons.Default.Search
+                                                    else -> Icons.Default.Fingerprint
                                                 },
                                                 contentDescription = engine,
                                                 tint = textEngineColor,
@@ -742,6 +761,21 @@ fun BrowserScreen(
                     )
                 }
 
+                // Home Navigation Button to access Prime Homepage
+                IconButton(
+                    onClick = {
+                        urlInputState = ""
+                        viewModel.loadUrl("prime://home")
+                    },
+                    modifier = Modifier.testTag("app_nav_home")
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Home,
+                        contentDescription = "Home",
+                        tint = Color.White
+                    )
+                }
+
                 // Auto Gemini Sum Assistant Trigger Head Bubble
                 Box(
                     modifier = Modifier
@@ -845,6 +879,7 @@ fun BrowserScreen(
                 accentColor = accentColor
             )
         }
+    }
     }
 }
 

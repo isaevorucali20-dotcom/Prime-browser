@@ -41,7 +41,18 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         set
 
     // --- Search Engine Choice ---
-    var selectedSearchEngine by mutableStateOf("DuckDuckGo") // "DuckDuckGo", "Brave", "Tor (Onion)"
+    var selectedSearchEngine by mutableStateOf("Google") // "Google", "DuckDuckGo", "Brave", "Tor (Onion)"
+
+    // --- 5 Major Anonymity Protection System Core features ---
+    var isCanvasNoiseEnabled by mutableStateOf(true)
+    var isWebRTCLeakGuardEnabled by mutableStateOf(true)
+    var isSessionSandboxingEnabled by mutableStateOf(false)
+    var isReferrerSpoofingEnabled by mutableStateOf(true)
+    var isDohCryptTunnelEnabled by mutableStateOf(true)
+
+    // --- Camouflage (Disguise Decoy) ---
+    var isCamouflageEnabled by mutableStateOf(false)
+    var activeCamouflageMode by mutableStateOf(false)
 
     // --- History & Bookmarks ---
     val history = repository.history
@@ -279,6 +290,7 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
         if (!cleanUrl.contains(".") || cleanUrl.contains(" ")) {
             val encodedVal = java.net.URLEncoder.encode(cleanUrl, "UTF-8")
             cleanUrl = when (selectedSearchEngine) {
+                "Google" -> "https://www.google.com/search?q=$encodedVal"
                 "Brave" -> "https://search.brave.com/search?q=$encodedVal"
                 "Tor (Onion)" -> {
                     if (isOnionRoutingEnabled) {
@@ -717,6 +729,11 @@ class BrowserViewModel(application: Application) : AndroidViewModel(application)
                 devWorkspaceSourceCode = output.toString()
             }
         }
+    }
+
+    fun runGeminiQuickQuery(query: String, pageHtmlText: String) {
+        aiChatMessageInput = query
+        submitAiChatMessage(pageHtmlText)
     }
 
     fun clearBrowsingData() {

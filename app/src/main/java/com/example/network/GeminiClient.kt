@@ -149,7 +149,7 @@ object GeminiClient {
         
         // Add context
         val contextPrompt = """
-            You are the integrated Aero Glass Assistant, analyzing a page the user is currently viewing.
+            You are the integrated Prime Secure Assistant, analyzing a page the user is currently viewing.
             Current URL: $url
             Page text contents:
             ${if (content.length > 5000) content.take(5000) + "..." else content}

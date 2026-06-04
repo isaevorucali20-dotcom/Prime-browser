@@ -304,6 +304,113 @@ fun SettingsScreen(
                 }
             }
 
+            // Section 2.5: Deep Anonymity Operations
+            item {
+                Text(
+                    text = "DEEP ANONYMITY CRYPTO PROTOCOLS",
+                    color = accentColor,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp,
+                    modifier = Modifier.padding(bottom = 6.dp)
+                )
+
+                GlassCard(modifier = Modifier.fillMaxWidth()) {
+                    // Option 1: Canvas Fingerprint Noise
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Canvas API Fingerprint Noise", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Adds random math perturbation grids onto HTML5 elements to confuse user profiling algorithms.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isCanvasNoiseEnabled,
+                            onCheckedChange = { viewModel.isCanvasNoiseEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Option 2: WebRTC IP Leak Guard
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("WebRTC IP Leak Guard", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Blocks internal network IP leaks on WebRTC media stream queries.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isWebRTCLeakGuardEnabled,
+                            onCheckedChange = { viewModel.isWebRTCLeakGuardEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Option 3: HTTP Referrer Sanitization
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("HTTP Referrer Trim", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Truncates outgoing page references to absolute domain boundaries only.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isReferrerSpoofingEnabled,
+                            onCheckedChange = { viewModel.isReferrerSpoofingEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Option 4: Session Sandbox
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Transient Session Sandbox", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Isolates cache buffers, purging dynamic storage scopes instantly on tab close.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isSessionSandboxingEnabled,
+                            onCheckedChange = { viewModel.isSessionSandboxingEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Option 5: Tor / DoH DNS Tunnel
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Encrypted DNS Tunneling", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Intercepts domain queries into Quad9 Encrypted TLS / DoH tunnels.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isDohCryptTunnelEnabled,
+                            onCheckedChange = { viewModel.isDohCryptTunnelEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+                }
+            }
+
             // Section 3: Ad Blocking & Tracking Toggles
             item {
                 Text(
@@ -347,6 +454,66 @@ fun SettingsScreen(
                             checked = viewModel.trackerFilterNoScript,
                             onCheckedChange = { viewModel.trackerFilterNoScript = it },
                             colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+                }
+            }
+
+            // Section 3.25: Discrete Camouflage / Disguise setup
+            item {
+                Text(
+                    text = "DISCRETE CAMOUFLAGE DECOY",
+                    color = accentColor,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp,
+                    modifier = Modifier.padding(bottom = 6.dp)
+                )
+
+                GlassCard(modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text("Calculator Camouflage Mode", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            Text("Enables an interactive iOS-style calculator overlay to mask your browsing session immediately.", color = Color.White.copy(alpha = 0.5f), fontSize = 9.sp)
+                        }
+                        Switch(
+                            checked = viewModel.isCamouflageEnabled,
+                            onCheckedChange = { viewModel.isCamouflageEnabled = it },
+                            colors = SwitchDefaults.colors(checkedThumbColor = accentColor)
+                        )
+                    }
+
+                    if (viewModel.isCamouflageEnabled) {
+                        Spacer(modifier = Modifier.height(14.dp))
+
+                        GlassButton(
+                            onClick = { 
+                                viewModel.activeCamouflageMode = true
+                                onCloseSettings() 
+                            },
+                            glowAccentColor = accentColor,
+                            isSelected = true,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Activate Camouflage Screen Now",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Text(
+                            text = "🔑 HOW TO UNLOCK:\nLong press the 'C' (Clear) key or type '1337' and tap the '=' key on the calculator screen to instantly return to Prime Browser.",
+                            color = Color.White.copy(alpha = 0.7f),
+                            fontSize = 10.sp,
+                            lineHeight = 14.sp
                         )
                     }
                 }

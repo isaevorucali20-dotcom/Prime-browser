@@ -5,8 +5,10 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -404,6 +406,46 @@ fun GeminiAssistantTray(
                                         fontSize = 11.sp
                                     )
                                 }
+                            }
+                        }
+                    }
+
+                    // Quick Action Chips for Gemini
+                    Text(
+                        text = "SUGGESTED ANALYTICAL AUDITS",
+                        color = Color.White.copy(alpha = 0.4f),
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(top = 10.dp, bottom = 4.dp)
+                    )
+                    
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        val quickPrompts = listOf(
+                            "🔍 Threat Analysis" to "Analyze the security and privacy threat level of this page, highlight risks.",
+                            "📝 Summarize TL;DR" to "Provide a detailed TL;DR summary and main bullet points of this webpage.",
+                            "🕵️ Look for Scams" to "Verify if this page shows signs of phishing, scams, or dark patterns.",
+                            "🔒 Cookie Check" to "Summarize key data structures, trackers, and cookies this site attempts to deposit."
+                        )
+                        items(quickPrompts) { (label, promptText) ->
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(accentColor.copy(alpha = 0.12f))
+                                    .border(1.dp, accentColor.copy(alpha = 0.4f), RoundedCornerShape(12.dp))
+                                    .clickable {
+                                        viewModel.runGeminiQuickQuery(promptText, activePageHtml)
+                                    }
+                                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                            ) {
+                                Text(
+                                    text = label,
+                                    color = Color.White,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Medium
+                                )
                             }
                         }
                     }
